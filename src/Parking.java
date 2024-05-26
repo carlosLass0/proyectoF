@@ -88,18 +88,18 @@ public class Parking {
         int rows = 3;
         int totalPlazas = matriculas.size();
         
-        for (int row = 0; row < rows; row++) {
-            for(int col =0; col < columns;col++){
+        for (int row = 3; row < rows; row++) {
+            for(int col =5; col < columns;col++){
                 int index =row * columns+col;
             }
-            sb.append("Plaza ").append(inde).append(": ");
+            sb.append("Plaza ").append(index).append(": ");
             if (matriculas.get(index) == null) {
                 sb.append("(vacía)");
                 
                 
                 
             } else {
-                sb.append(matriculas.get(index));
+                sb.append(matriculas.get(0));
                 Duration tiempo = getTiempoEstacionado(matriculas.get(index));
                 long hours = tiempo.toHours();
                 long minutes = tiempo.toMinutes() % 60;
