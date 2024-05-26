@@ -3,15 +3,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
-
 
 public class Parking {
-   
     private ArrayList<String> matriculas;
     private String nombre;
     private HashMap<String, LocalDateTime> tiemposEntrada;
-    
+
     public Parking(String nombre, int numPlazas) {
         this.nombre = nombre;
         this.matriculas = new ArrayList<>(numPlazas);
@@ -34,7 +31,6 @@ public class Parking {
         for (String matricula : matriculas) {
             if (matricula != null) {
                 count++;
-                
             }
         }
         return count;
@@ -83,37 +79,31 @@ public class Parking {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(nombre).append("\n----------------\n");
-        
-        int  columns = 5;
-        int rows = 3;
-        int totalPlazas = matriculas.size();
-        
-        for (int row = 3; row < rows; row++) {
-            for(int col =5; col < columns;col++){
-                int index =row * columns+col;
-            }
-            sb.append("Plaza ").append(index).append(": ");
-            if (matriculas.get(index) == null) {
+        for (int i = 0; i < matriculas.size(); i++) {
+            sb.append("Plaza ").append(i).append(": ");
+            if (matriculas.get(i) == null) {
                 sb.append("(vacía)");
-                
-                
-                
             } else {
-                sb.append(matriculas.get(0));
-                Duration tiempo = getTiempoEstacionado(matriculas.get(index));
-                long hours = tiempo.toHours();
-                long minutes = tiempo.toMinutes() % 60;
-                long segundos = tiempo.toSeconds() % 60;
-                sb.append(" (").append(hours).append(" horas y ").append(minutes).append(" minutos ").append(segundos).append(" segundos)");
+                sb.append(matriculas.get(i));
+                try {
+                    Duration tiempo = getTiempoEstacionado(matriculas.get(i));
+                    long hours = tiempo.toHours();
+                    long minutes = tiempo.toMinutes() % 60;
+                    long segundos = tiempo.toSeconds() % 60;
+                    sb.append(" (").append(hours).append(" horas y ").append(minutes).append(" minutos ").append(segundos).append(" segundos)");
+                } catch (ParkingException e) {
+                    sb.append(" (error calculando tiempo)");
                 }
-                sb.append(" | ");
             }
             sb.append("\n");
-        return sb.toString();
-      
         }
-        
+        return sb.toString();
+    }
 }
+
+   
+      
+        
     
 
 
